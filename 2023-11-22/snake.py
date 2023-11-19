@@ -1,3 +1,7 @@
+#
+# 參考資料：https://hackmd.io/@Derek46518/HyZHsD0Qo
+#
+
 import pygame
 import sys
 

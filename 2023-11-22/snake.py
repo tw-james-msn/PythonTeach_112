@@ -40,7 +40,7 @@ while True:
 
         # 若事件類型是「視窗右上角x被按下」則結束遊戲
         if e.type == pygame.QUIT:
-            pygame.quit()   # 結束pygame(對應pygame.init()固定要寫的)
+            pygame.quit()   # 結束pygame(對應pygame.init()，結束固定要寫的)
             sys.exit()      # 結束程式 **THE END**
 
         # 若事件類型是按鍵被按下

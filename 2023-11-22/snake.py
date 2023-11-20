@@ -2,10 +2,12 @@
 # 參考資料：https://hackmd.io/@Derek46518/HyZHsD0Qo
 #
 
-import pygame
-import sys
+import pygame   # 遊戲模組
+import sys      # 程式控制
+import random   # 亂數
 
-pygame.init()  # 初始化pygame的模組(一開始固定要寫的)
+# 初始化pygame的模組(一開始固定要寫的)
+pygame.init()
 
 # 定義頻色變數
 redColor = pygame.Color(255, 0, 0)
@@ -14,9 +16,10 @@ blackColor = pygame.Color(0, 0, 0)
 whiteColor = pygame.Color(255, 255, 255)
 greyColor = pygame.Color(150, 150, 150)
 
-WIDTH = 40  # 遊戲畫面寬
-HEIGHT = 25  # 遊戲畫面高
-SCALE = 20  # 放大比例
+# 遊戲畫面寬、高
+WIDTH, HEIGHT = 40, 25
+# 放大比例
+SCALE = 20
 
 # 設定遊戲視窗的尺寸(size)
 screen = pygame.display.set_mode((WIDTH * SCALE, HEIGHT * SCALE))
@@ -24,20 +27,23 @@ screen = pygame.display.set_mode((WIDTH * SCALE, HEIGHT * SCALE))
 pygame.display.set_caption('我的貪食蛇遊戲')
 
 # 設定蛇頭一開始的座標
-head_x = WIDTH // 2
-head_y = HEIGHT // 2
-body = [(head_x, head_y)]  # 預設身體裡只有一個「頭」
-direction = '右'  # 預設一開始蛇是往右走
-
+head_x, head_y = WIDTH // 2, HEIGHT // 2
+# 蛇的身體，用list(清單、陣列)來記錄每一節的座標
+# 一開始身體裡只有一個「頭」
+body = [].append((head_x, head_y))
+# 一開始蛇要走的方向，由亂數決定
+direction = random.choice('上下左右')
 # 建立clock時鐘物件，遊戲速度控制用
 fpsClock = pygame.time.Clock()
 
 # 遊戲迴圈 --Begin--------
 while True:
 
-    fpsClock.tick(5)  # 控制遊戲速度，數字越大遊戲速度越快
+    # 控制遊戲速度，數字越大遊戲速度越快
+    fpsClock.tick(5)
 
-    events = pygame.event.get()  # 取得所有曾發生的event(事件)
+    # 取得所有曾發生的event(事件)
+    events = pygame.event.get()
 
     # 一一取得所有曾發生的event(事件)來檢查
     for e in events:

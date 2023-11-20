@@ -67,7 +67,7 @@ while True:
             elif e.key == pygame.K_SPACE:
                 direction = ""
 
-    # --事件檢查-------------
+    # --事件檢查------------
 
     if direction == "右":
         head_x = head_x + 1

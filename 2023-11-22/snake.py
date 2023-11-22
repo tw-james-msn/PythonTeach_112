@@ -82,7 +82,7 @@ while True:
         head_y = head_y + 1
 
     # 清空、重繪pygame顯示層
-    screen.fill(blackColor)  # 塗黑全部背景
+    screen.fill(COLOR_BLACK)  # 塗黑全部背景
 
     # 定義一個pygame的矩形物件(pygame.Rect())，等一下要用
     rect = pygame.Rect(head_x * SCALE, head_y * SCALE, SCALE, SCALE)

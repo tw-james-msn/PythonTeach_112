@@ -106,9 +106,6 @@ while True:
     # 清空、重繪pygame顯示層
     screen.fill(COLOR_BLACK)  # 塗黑全部背景
 
-    (x, y) = head
-
-
     # 繪出蛇身體
     for (x, y) in body[1:]:
         # 定義一個pygame的矩形物件(pygame.Rect())，等一下要用

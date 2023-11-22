@@ -34,12 +34,18 @@ COLOR_GREY = pygame.Color(150, 150, 150)
 
 
 # 設定蛇頭一開始的座標
-head_x, head_y = WIDTH // 2, HEIGHT // 2
+head = (WIDTH // 2, HEIGHT // 2)
 # 蛇的身體，用list(清單、陣列)來記錄每一節的座標
 # 一開始身體裡只有一個「頭」
-body = [].append((head_x, head_y))
+body = [head]
 # 一開始蛇要走的方向，由亂數決定
 direction = random.choice('上下左右')
+
+# 利用亂數設定果子座標
+# 如果果子和蛇頭是相同座標，就再產生一次果子座標
+fruit = head
+while fruit == head: 
+    fruit = (random.randrange(1, WIDTH-2), random.randrange(1, HEIGHT-2))
 
 
 # 遊戲迴圈 --Begin--------
@@ -69,32 +75,67 @@ while True:
                 direction = "下"
             elif e.key == pygame.K_SPACE:
                 direction = ""
-
     # --事件檢查-結束-----------
 
+    # 根據移動方向來決定新蛇頭的座標
+    (x, y) = head   # 解構
     if direction == "右":
-        head_x = head_x + 1
+        head = (x + 1, y)
     elif direction == "左":
-        head_x = head_x - 1
+        head = (x - 1, y)
     elif direction == "上":
-        head_y = head_y - 1
+        head = (x, y - 1)
     elif direction == "下":
-        head_y = head_y + 1
+        head = (x, y + 1)
+
+    # 先在蛇身上加入新蛇頭(長度增加)
+    body.append(0, head)
+    
+    # 判斷是否吃掉了果子，再決定是否刪掉蛇尾
+    # if
+    
+    # else
+        # 如果吃掉果子，則重新生成樹莓
+        # fruit = (random.randrange(1, WIDTH-2), random.randrange(1, HEIGHT-2))
+        # 分數增加
+        # score += 1
+
+
 
     # 清空、重繪pygame顯示層
     screen.fill(COLOR_BLACK)  # 塗黑全部背景
 
+    (x, y) = head
     # 定義一個pygame的矩形物件(pygame.Rect())，等一下要用
-    rect = pygame.Rect(head_x * SCALE, head_y * SCALE, SCALE, SCALE)
+    rect = pygame.Rect(x * SCALE, y * SCALE, SCALE, SCALE)
     # 使用rect()來畫矩形，需要指定要畫在哪裡(screen)，畫什麼顏色(COLOR_GREEN)，畫的Rect物件
     pygame.draw.rect(screen, COLOR_GREEN, rect)
 
+    # # 繪出蛇身體
+    # for (x, y) in body[1:]:
+    #     pygame.draw.rect(screen, COLOR_WHITE, pygame.Rect(x * SCALE, y * SCALE, SCALE, SCALE))
 
-
+    # # 繪出蛇頭(先畫身體再畫頭方能使頭吃到身體時畫面能表現出來)
+    # (x, y) = body[0]
+    # pygame.draw.rect(screen, COLOR_GREEN, pygame.Rect(x * SCALE, y * SCALE, SCALE, SCALE))
+    
+    # # 繪出果子
+    # (x, y) = fruit
+    # pygame.draw.rect(screen, COLOR_RED, pygame.Rect(x * SCALE, y * SCALE, SCALE, SCALE))
 
     # 更新pygame顯示層
     pygame.display.update()
     
+    # # 判斷是否死亡
+    # (x, y) = head
+    # if not (0 <= x < WIDTH and 0 <= y < HEIGHT):  # 如果蛇頭在X、Y軸方向沒有在視窗範圍內
+    #     gameOver(screen, score)
+
+    # # 是否吃到自己身體
+    # elif head in body[1:]:
+    #     gameOver(screen, score)
+
+
     # 控制遊戲速度，FPS數字越大遊戲速度越快
     fpsClock.tick(FPS)
 

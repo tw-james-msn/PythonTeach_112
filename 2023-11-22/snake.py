@@ -9,7 +9,6 @@ import random   # 亂數
 # 初始化pygame的模組(一開始固定要寫的)
 pygame.init()
 
-
 # 遊戲畫面寬、高
 WIDTH, HEIGHT = 40, 25
 # 放大比例
@@ -23,7 +22,7 @@ pygame.display.set_caption('我的貪食蛇遊戲')
 # 建立clock時鐘物件，配合FPS控制遊戲速度用
 fpsClock = pygame.time.Clock()
 # FPS (Frame per second) 每秒顯示影格數(每秒幾楨)
-FPS = 5
+FPS = 15
 
 # 定義遊戲中使用的顏色
 COLOR_RED = pygame.Color(255, 0, 0)
@@ -33,11 +32,13 @@ COLOR_WHITE = pygame.Color(255, 255, 255)
 COLOR_GREY = pygame.Color(150, 150, 150)
 
 
-# 設定蛇頭一開始的座標
+# 設定蛇頭一開始的座標(有兩個數字)
 head = (WIDTH // 2, HEIGHT // 2)
+
 # 蛇的身體，用list(清單、陣列)來記錄每一節的座標
 # 一開始身體裡只有一個「頭」
 body = [head]
+
 # 一開始蛇要走的方向，由亂數決定
 direction = random.choice('上下左右')
 
@@ -47,6 +48,8 @@ fruit = head
 while fruit == head: 
     fruit = (random.randrange(1, WIDTH-2), random.randrange(1, HEIGHT-2))
 
+# 遊戲得分
+score = 0
 
 # 遊戲迴圈 --Begin--------
 while True:
@@ -89,39 +92,37 @@ while True:
         head = (x, y + 1)
 
     # 先在蛇身上加入新蛇頭(長度增加)
-    body.append(0, head)
+    body.insert(0, head)
     
     # 判斷是否吃掉了果子，再決定是否刪掉蛇尾
-    # if
-    
-    # else
+    if head != fruit:
+        body.pop()
+    else:
         # 如果吃掉果子，則重新生成樹莓
-        # fruit = (random.randrange(1, WIDTH-2), random.randrange(1, HEIGHT-2))
-        # 分數增加
-        # score += 1
-
-
+        fruit = (random.randrange(1, WIDTH-2), random.randrange(1, HEIGHT-2))
+        # 得分加1
+        score += 1
 
     # 清空、重繪pygame顯示層
     screen.fill(COLOR_BLACK)  # 塗黑全部背景
 
     (x, y) = head
-    # 定義一個pygame的矩形物件(pygame.Rect())，等一下要用
-    rect = pygame.Rect(x * SCALE, y * SCALE, SCALE, SCALE)
-    # 使用rect()來畫矩形，需要指定要畫在哪裡(screen)，畫什麼顏色(COLOR_GREEN)，畫的Rect物件
-    pygame.draw.rect(screen, COLOR_GREEN, rect)
 
-    # # 繪出蛇身體
-    # for (x, y) in body[1:]:
-    #     pygame.draw.rect(screen, COLOR_WHITE, pygame.Rect(x * SCALE, y * SCALE, SCALE, SCALE))
 
-    # # 繪出蛇頭(先畫身體再畫頭方能使頭吃到身體時畫面能表現出來)
-    # (x, y) = body[0]
-    # pygame.draw.rect(screen, COLOR_GREEN, pygame.Rect(x * SCALE, y * SCALE, SCALE, SCALE))
+    # 繪出蛇身體
+    for (x, y) in body[1:]:
+        # 定義一個pygame的矩形物件(pygame.Rect())，等一下要用
+        rect = pygame.Rect(x * SCALE, y * SCALE, SCALE, SCALE)
+        # 使用rect()來畫矩形，需要指定要畫在哪裡(screen)，畫什麼顏色(COLOR_GREEN)，畫的Rect物件
+        pygame.draw.rect(screen, COLOR_WHITE, rect)
     
-    # # 繪出果子
-    # (x, y) = fruit
-    # pygame.draw.rect(screen, COLOR_RED, pygame.Rect(x * SCALE, y * SCALE, SCALE, SCALE))
+    # 繪出蛇頭(先畫身體再畫頭方能使頭吃到身體時畫面能表現出來)
+    (x, y) = body[0]
+    pygame.draw.rect(screen, COLOR_GREEN, pygame.Rect(x * SCALE, y * SCALE, SCALE, SCALE))
+    
+    # 繪出果子
+    (x, y) = fruit
+    pygame.draw.rect(screen, COLOR_RED, pygame.Rect(x * SCALE, y * SCALE, SCALE, SCALE))
 
     # 更新pygame顯示層
     pygame.display.update()
@@ -139,4 +140,4 @@ while True:
     # 控制遊戲速度，FPS數字越大遊戲速度越快
     fpsClock.tick(FPS)
 
-# 遊戲迴圈 --End--
+# 遊戲迴圈 --End----------

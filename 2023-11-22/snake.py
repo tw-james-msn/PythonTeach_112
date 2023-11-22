@@ -9,12 +9,6 @@ import random   # 亂數
 # 初始化pygame的模組(一開始固定要寫的)
 pygame.init()
 
-# 定義頻色變數
-redColor = pygame.Color(255, 0, 0)
-greenColor = pygame.Color(27, 205, 70, 163)
-blackColor = pygame.Color(0, 0, 0)
-whiteColor = pygame.Color(255, 255, 255)
-greyColor = pygame.Color(150, 150, 150)
 
 # 遊戲畫面寬、高
 WIDTH, HEIGHT = 40, 25
@@ -26,6 +20,19 @@ screen = pygame.display.set_mode((WIDTH * SCALE, HEIGHT * SCALE))
 # 設定遊戲視窗的抬頭
 pygame.display.set_caption('我的貪食蛇遊戲')
 
+# 建立clock時鐘物件，配合FPS控制遊戲速度用
+fpsClock = pygame.time.Clock()
+# FPS (Frame per second) 每秒顯示影格數(每秒幾楨)
+FPS = 5
+
+# 定義遊戲中使用的顏色
+COLOR_RED = pygame.Color(255, 0, 0)
+COLOR_GREEN = pygame.Color(27, 205, 70, 163)
+COLOR_BLACK = pygame.Color(0, 0, 0)
+COLOR_WHITE = pygame.Color(255, 255, 255)
+COLOR_GREY = pygame.Color(150, 150, 150)
+
+
 # 設定蛇頭一開始的座標
 head_x, head_y = WIDTH // 2, HEIGHT // 2
 # 蛇的身體，用list(清單、陣列)來記錄每一節的座標
@@ -33,14 +40,10 @@ head_x, head_y = WIDTH // 2, HEIGHT // 2
 body = [].append((head_x, head_y))
 # 一開始蛇要走的方向，由亂數決定
 direction = random.choice('上下左右')
-# 建立clock時鐘物件，遊戲速度控制用
-fpsClock = pygame.time.Clock()
+
 
 # 遊戲迴圈 --Begin--------
 while True:
-
-    # 控制遊戲速度，數字越大遊戲速度越快
-    fpsClock.tick(5)
 
     # 取得所有曾發生的event(事件)
     events = pygame.event.get()
@@ -67,7 +70,7 @@ while True:
             elif e.key == pygame.K_SPACE:
                 direction = ""
 
-    # --事件檢查------------
+    # --事件檢查-結束-----------
 
     if direction == "右":
         head_x = head_x + 1
@@ -79,14 +82,20 @@ while True:
         head_y = head_y + 1
 
     # 清空、重繪pygame顯示層
-    screen.fill(blackColor)  # 塗黑全部背景
+    COLOR_BLACKl(blackColor)  # 塗黑全部背景
 
     # 定義一個pygame的矩形物件(pygame.Rect())，等一下要用
     rect = pygame.Rect(head_x * SCALE, head_y * SCALE, SCALE, SCALE)
-    # 使用rect()來畫矩形，需要指定要畫在哪裡(screen)，畫什麼顏色(greenColor)，畫的Rect物件
-    pygame.draw.rect(screen, greenColor, rect)
+    # 使用rect()來畫矩形，需要指定要畫在哪裡(screen)，畫什麼顏色(COLOR_GREEN)，畫的Rect物件
+    pygame.draw.rect(screen, COLOR_GREEN, rect)
+
+
+
 
     # 更新pygame顯示層
     pygame.display.update()
+    
+    # 控制遊戲速度，FPS數字越大遊戲速度越快
+    fpsClock.tick(FPS)
 
 # 遊戲迴圈 --End--

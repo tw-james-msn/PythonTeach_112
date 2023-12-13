@@ -27,12 +27,28 @@ COLOR_BLACK = pygame.Color(0, 0, 0)
 COLOR_WHITE = pygame.Color(255, 255, 255)
 COLOR_GREY = pygame.Color(150, 150, 150)
 
+# 音樂出始化
+pygame.mixer.init()
+
+# 載入各種音效
+bgm = pygame.mixer.Sound("2023-12-13/bgm.wav")                  # 背景音樂
+fruit_sfx = pygame.mixer.Sound("2023-12-13/food.wav")           # 吃到果子的音效
+game_over_sfx = pygame.mixer.Sound("2023-12-13/game_over.wav")  # 死掉的音效
+
+# -1表示音樂無限循環播放
+bgm.play(-1)
+
+
 def theEnd():
     pygame.quit()   # 結束pygame(對應pygame.init()，結束固定要寫的)
     sys.exit()      # 結束程式 **THE END**
 
 def gameOver(screen, score):
     '''死了，顯示分數，遊戲結束'''
+    
+    # 播放音效
+    game_over_sfx.play()
+
     # for i in pygame.font.get_fonts(): print(i)    # 列出這台電腦安裝的所有字型
     # txtFont = pygame.font.SysFont('MicrosoftJhenghei', 54)  # 建立字型物件供顯示文字訊息時用
     txtFont = pygame.font.SysFont('MicrosoftJhenghei,華康超圓體', 54)  # 建立字型物件供顯示文字訊息時用
@@ -135,9 +151,13 @@ def main():
         else:
             # 如果吃掉果子，得分加1
             score += 1
+            # 播放音效
+            fruit_sfx.play()    
+
             # 重新生成果子
             while fruit in body: # 檢查新產生的果子有沒有剛好在body上面
                 fruit = (random.randrange(1, WIDTH-2), random.randrange(1, HEIGHT-2))
+        
         # 清空、重繪pygame顯示層
         screen.fill(COLOR_BLACK)  # 塗黑全部背景
 

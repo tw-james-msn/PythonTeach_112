@@ -4,12 +4,13 @@ import sys
 # import os
 
 
-WIDTH = 500
-HEIGHT = 600
+WIDTH = 500         # 遊戲視窗高度
+HEIGHT = 600        # 遊戲視窗寬度
 
-COLOR_BLACK = (0,0,0)
+COLOR_BLACK = (0,0,0)       # 黑色
 
-
+clock = pygame.time.Clock()     # 控制遊戲速度用
+FPS = 60                        # 每秒幾楨畫面
 
 # 副程式
 def theEnd():
@@ -24,8 +25,7 @@ def main():
   screen = pygame.display.set_mode((WIDTH, HEIGHT))
   pygame.display.set_caption("太空生存戰")
 
-  clock = pygame.time.Clock()
-  FPS = 60
+
 
   # 遊戲迴圈
   while True:

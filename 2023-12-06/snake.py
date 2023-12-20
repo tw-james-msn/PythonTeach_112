@@ -33,8 +33,7 @@ def theEnd():
 
 def gameOver(screen, score):
     '''死了，顯示分數，遊戲結束'''
-    # txtFont = pygame.font.SysFont('arial.ttf', 54)  # 建立字型物件供顯示文字訊息時用
-    txtFont = pygame.font.SysFont('msjh.ttf', 54)  # 建立字型物件供顯示文字訊息時用
+    txtFont = pygame.font.SysFont('MicrosoftJhenghei,pingfang', 54)  # 建立字型物件供顯示文字訊息時用
 
     # 顯示「Game Over!」文字
     # 1.產生文字圖形物件

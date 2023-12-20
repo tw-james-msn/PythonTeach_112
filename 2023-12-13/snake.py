@@ -51,7 +51,7 @@ def gameOver(screen, score):
 
     # for i in pygame.font.get_fonts(): print(i)    # 列出這台電腦安裝的所有字型
     # txtFont = pygame.font.SysFont('MicrosoftJhenghei', 54)  # 建立字型物件供顯示文字訊息時用
-    txtFont = pygame.font.SysFont('MicrosoftJhenghei,華康超圓體', 54)  # 建立字型物件供顯示文字訊息時用
+    txtFont = pygame.font.SysFont('MicrosoftJhenghei,LiGothicMed', 54)  # 建立字型物件供顯示文字訊息時用
 
     # 顯示「Game Over!」文字
     # 1.產生文字圖形物件

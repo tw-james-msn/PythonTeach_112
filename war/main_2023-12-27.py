@@ -3,6 +3,7 @@ import sys
 import os
 # import random
 
+# 切換工作資料夾到 war 裡
 if not os.getcwd().endswith('war'): os.chdir(os.path.join(os.getcwd(),'war'))
 
 WIDTH = 500         # 遊戲視窗高度

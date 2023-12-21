@@ -1,8 +1,9 @@
 import pygame
 import sys
+import os
 # import random
-# import os
 
+if not os.getcwd().endswith('war'): os.chdir(os.path.join(os.getcwd(),'war'))
 
 WIDTH = 500         # 遊戲視窗高度
 HEIGHT = 600        # 遊戲視窗寬度

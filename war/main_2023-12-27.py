@@ -68,6 +68,16 @@ pygame.mixer.init()
 pygame.mixer.music.load("sound/background.ogg")
 pygame.mixer.music.set_volume(0.3)
 
+shoot_sound = pygame.mixer.Sound("sound/shoot.wav")
+gun_sound = pygame.mixer.Sound("sound/pow1.wav")
+shield_sound = pygame.mixer.Sound("sound/pow0.wav")
+die_sound = pygame.mixer.Sound("sound/rumble.ogg")
+expl_sounds = [
+    pygame.mixer.Sound("sound/expl0.wav"),
+    pygame.mixer.Sound("sound/expl1.wav")
+]
+
+
 #############
 ## 物件類別 ##
 ############

@@ -11,9 +11,9 @@ import time     #
 pygame.init()
 
 # 遊戲畫面寬、高
-WIDTH, HEIGHT = 40, 25
+WIDTH, HEIGHT = 24, 20
 # 放大比例
-SCALE = 20
+SCALE = 30
 
 # 設定遊戲視窗的尺寸(size)
 screen = pygame.display.set_mode((WIDTH * SCALE, HEIGHT * SCALE))
@@ -27,16 +27,20 @@ COLOR_BLACK = pygame.Color(0, 0, 0)
 COLOR_WHITE = pygame.Color(255, 255, 255)
 COLOR_GREY = pygame.Color(150, 150, 150)
 
+## 背景圖
+background_img = pygame.image.load("2023-12-13/background.png").convert()
+
 # 音樂出始化
 pygame.mixer.init()
 
 # 載入各種音效
-bgm = pygame.mixer.Sound("2023-12-13/bgm.wav")                  # 背景音樂
+pygame.mixer.music.load("2023-12-13/bgm.wav")                   # 背景音樂
+pygame.mixer.music.set_volume(0.2)                              # 設定音量
 fruit_sfx = pygame.mixer.Sound("2023-12-13/food.wav")           # 吃到果子的音效
 game_over_sfx = pygame.mixer.Sound("2023-12-13/game_over.wav")  # 死掉的音效
 
 # -1表示音樂無限循環播放
-bgm.play(-1)
+pygame.mixer.music.play(-1)
 
 
 def theEnd():
@@ -50,7 +54,8 @@ def gameOver(screen, score):
     game_over_sfx.play()
 
     # for i in pygame.font.get_fonts(): print(i)    # 列出這台電腦安裝的所有字型
-    txtFont = pygame.font.SysFont('MicrosoftJhenghei,LiGothicMed', 54)  # 建立字型物件供顯示文字訊息時用
+    # txtFont = pygame.font.SysFont('MicrosoftJhenghei', 54)  # 建立字型物件供顯示文字訊息時用
+    txtFont = pygame.font.SysFont('MicrosoftJhenghei, pingfang', 54)  # 建立字型物件供顯示文字訊息時用
 
     # 顯示「Game Over!」文字
     # 1.產生文字圖形物件
@@ -69,7 +74,7 @@ def gameOver(screen, score):
     
     pygame.display.update()     # 更新畫面
     
-    time.sleep(4)   # 程式暫停2秒
+    time.sleep(3)   # 程式暫停3秒
 
     theEnd()        # 結束程式    
 
@@ -79,7 +84,7 @@ def main():
     # 建立clock時鐘物件，配合FPS控制遊戲速度用
     fpsClock = pygame.time.Clock()
     # FPS (Frame per second) 每秒顯示影格數(每秒幾楨)
-    FPS = 15
+    FPS = 8
 
     # 設定蛇頭一開始的座標(有兩個數字)
     head = (WIDTH // 2, HEIGHT // 2)
@@ -158,8 +163,9 @@ def main():
                 fruit = (random.randrange(1, WIDTH-2), random.randrange(1, HEIGHT-2))
         
         # 清空、重繪pygame顯示層
-        screen.fill(COLOR_BLACK)  # 塗黑全部背景
-
+        screen.fill(COLOR_BLACK)            # 塗黑全部背景
+        screen.blit(background_img, (0,0))  # 顯示背景圖
+        
         # 繪出蛇身體
         for (x, y) in body[1:]:
             # 定義一個pygame的矩形物件(pygame.Rect())，等一下要用

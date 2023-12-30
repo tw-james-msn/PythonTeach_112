@@ -3,8 +3,8 @@ import sys
 import os
 import random
 
-# 切換工作資料夾到 war 裡
-if not os.getcwd().endswith('war'): os.chdir(os.path.join(os.getcwd(),'war'))
+# 切換系統資料夾為本程式所在的資料夾，以方便取用圖片、音效檔案
+os.chdir(os.path.dirname(__file__))
 
 WIDTH = 500         # 遊戲視窗高度
 HEIGHT = 600        # 遊戲視窗寬度

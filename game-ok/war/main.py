@@ -3,6 +3,9 @@ import pygame
 import random 
 import os
 
+# 切換系統資料夾為本程式所在的資料夾，以方便取用圖片、音效檔案
+os.chdir(os.path.dirname(__file__))
+
 FPS = 60 
 WIDTH = 500
 HEIGHT = 600
@@ -176,7 +179,7 @@ class Player(pygame.sprite.Sprite):
 class Rock(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image_ori = random.choice(rock_imgs) 
+        self.image_ori = random.choice(rock_imgs)
         self.image_ori.set_colorkey(BLACK)
         self.image = self.image_ori.copy()
         self.rect = self.image.get_rect()
@@ -191,7 +194,7 @@ class Rock(pygame.sprite.Sprite):
 
     def rotate(self):
         self.total_degree += self.rot_degree
-        self.total_degree = self.total_degree % 360
+        self.total_degree %= 360
         self.image = pygame.transform.rotate(self.image_ori, self.total_degree)
         center = self.rect.center
         self.rect = self.image.get_rect()

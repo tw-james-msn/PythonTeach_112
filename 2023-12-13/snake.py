@@ -5,7 +5,11 @@
 import pygame   # 遊戲模組
 import sys      # 程式控制
 import random   # 亂數
-import time     # 
+import time     
+import os
+
+# 切換系統資料夾為本程式所在的資料夾，以方便取用圖片、音效檔案
+os.chdir(os.path.dirname(__file__))
 
 # 初始化pygame的模組(一開始固定要寫的)
 pygame.init()
@@ -28,16 +32,16 @@ COLOR_WHITE = pygame.Color(255, 255, 255)
 COLOR_GREY = pygame.Color(150, 150, 150)
 
 ## 背景圖
-background_img = pygame.image.load("2023-12-13/background.png").convert()
+background_img = pygame.image.load("background.png").convert()
 
 # 音樂出始化
 pygame.mixer.init()
 
 # 載入各種音效
-pygame.mixer.music.load("2023-12-13/bgm.wav")                   # 背景音樂
+pygame.mixer.music.load("bgm.wav")                   # 背景音樂
 pygame.mixer.music.set_volume(0.2)                              # 設定音量
-fruit_sfx = pygame.mixer.Sound("2023-12-13/food.wav")           # 吃到果子的音效
-game_over_sfx = pygame.mixer.Sound("2023-12-13/game_over.wav")  # 死掉的音效
+fruit_sfx = pygame.mixer.Sound("food.wav")           # 吃到果子的音效
+game_over_sfx = pygame.mixer.Sound("game_over.wav")  # 死掉的音效
 
 # -1表示音樂無限循環播放
 pygame.mixer.music.play(-1)
@@ -200,5 +204,3 @@ def main():
 
 # 現在這裡才是正式執行main這個副程式，上面def main()只是宣告一個副程式
 main()
-
-

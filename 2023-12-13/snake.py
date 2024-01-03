@@ -39,7 +39,7 @@ pygame.mixer.init()
 
 # 載入各種音效
 pygame.mixer.music.load("bgm.wav")                   # 背景音樂
-pygame.mixer.music.set_volume(0.2)                              # 設定音量
+pygame.mixer.music.set_volume(0.5)                   # 設定音量
 fruit_sfx = pygame.mixer.Sound("food.wav")           # 吃到果子的音效
 game_over_sfx = pygame.mixer.Sound("game_over.wav")  # 死掉的音效
 

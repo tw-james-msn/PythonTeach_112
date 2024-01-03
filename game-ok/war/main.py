@@ -61,7 +61,7 @@ expl_sounds = [
 pygame.mixer.music.load(os.path.join("sound", "background.ogg"))
 pygame.mixer.music.set_volume(0.4)
 
-font_name = os.path.join("font.ttf")
+# font_name = os.path.join("font.ttf")
 def draw_text(surf, text, size, x, y):
     # font = pygame.font.Font(font_name, size)
     font = pygame.font.SysFont('MicrosoftJhenghei, pingfang', size)

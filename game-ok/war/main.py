@@ -63,7 +63,8 @@ pygame.mixer.music.set_volume(0.4)
 
 font_name = os.path.join("font.ttf")
 def draw_text(surf, text, size, x, y):
-    font = pygame.font.Font(font_name, size)
+    # font = pygame.font.Font(font_name, size)
+    font = pygame.font.SysFont('MicrosoftJhenghei, pingfang', size)
     text_surface = font.render(text, True, WHITE)
     text_rect = text_surface.get_rect()
     text_rect.centerx = x

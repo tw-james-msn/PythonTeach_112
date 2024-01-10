@@ -26,8 +26,8 @@ FPS = 60                        # 每秒幾楨畫面
 
 # 載入圖片
 ## 背景圖、太空船圖
-background_img = pygame.image.load("img/background.png").convert()
-player_img = pygame.image.load("img/player.png").convert()
+background_img = pygame.image.load("img\\background.png").convert()
+player_img = pygame.image.load("img\\player.png").convert()
 ## 太空船縮小圖，用於「icon圖示」、「幾條命」
 player_mini_img = pygame.transform.scale(player_img, (25, 19))  # 用scale()來縮放圖形
 player_mini_img.set_colorkey(COLOR_BLACK)   # 設定透明色
@@ -36,12 +36,12 @@ player_mini_img.set_colorkey(COLOR_BLACK)   # 設定透明色
 pygame.display.set_icon(player_mini_img)    
 
 ## 子彈的圖案
-bullet_img = pygame.image.load("img/bullet.png").convert()
+bullet_img = pygame.image.load("img\\bullet.png").convert()
 
 ## 岩石的圖
 rock_imgs = [] 
 for i in range(7):
-    rock_imgs.append(pygame.image.load(f"img/rock{i}.png").convert())
+    rock_imgs.append(pygame.image.load(f"img\\rock{i}.png").convert())
 
 ## 爆炸效果圖(多張圖片變成動畫效果)
 expl_anim = {             # 各種爆炸的圖形總容器(字典類型)
@@ -51,32 +51,32 @@ expl_anim = {             # 各種爆炸的圖形總容器(字典類型)
 }
 
 for i in range(9):        # 每一個物件爆炸都有9張圖(0~8)
-    expl_img = pygame.image.load(f"img/expl{i}.png").convert()          # 原圖大小
+    expl_img = pygame.image.load(f"img\\expl{i}.png").convert()          # 原圖大小
     expl_img.set_colorkey(COLOR_BLACK)                                  # 設定透明色
     expl_anim['lg'].append(pygame.transform.scale(expl_img, (75, 75)))  # 縮放原圖
     expl_anim['sm'].append(pygame.transform.scale(expl_img, (30, 30)))  # 縮放原圖
-    player_expl_img = pygame.image.load(f"img/player_expl{i}.png").convert()  # 太空船
+    player_expl_img = pygame.image.load(f"img\\player_expl{i}.png").convert()  # 太空船
     player_expl_img.set_colorkey(COLOR_BLACK)                                 # 設定透明色
     expl_anim['player'].append(player_expl_img)
 
 ## 寶物的圖(補血、火力)
 power_imgs = {}                                                       # 各種寶物的圖形總容器(字典類型)
-power_imgs['shield'] = pygame.image.load("img/shield.png").convert()  # 補血寶物
-power_imgs['gun'] = pygame.image.load("img/gun.png").convert()        # 火力加強寶物
+power_imgs['shield'] = pygame.image.load("img\\shield.png").convert()  # 補血寶物
+power_imgs['gun'] = pygame.image.load("img\\gun.png").convert()        # 火力加強寶物
 
 # 載入音效 & 音樂
 pygame.mixer.init()
-pygame.mixer.music.load("sound/background.ogg")     # 背景音樂
+pygame.mixer.music.load("sound\\background.ogg")     # 背景音樂
 pygame.mixer.music.set_volume(0.3)                  # 設定音量大小
 
-shoot_sound = pygame.mixer.Sound("sound/shoot.wav")
-gun_sound = pygame.mixer.Sound("sound/pow1.wav")
-shield_sound = pygame.mixer.Sound("sound/pow0.wav")
-die_sound = pygame.mixer.Sound("sound/rumble.ogg")
+shoot_sound = pygame.mixer.Sound("sound\\shoot.wav")
+gun_sound = pygame.mixer.Sound("sound\\pow1.wav")
+shield_sound = pygame.mixer.Sound("sound\\pow0.wav")
+die_sound = pygame.mixer.Sound("sound\\rumble.ogg")
 
 expl_sounds = [
-  pygame.mixer.Sound("sound/expl0.wav"), 
-  pygame.mixer.Sound("sound/expl1.wav")
+  pygame.mixer.Sound("sound\\expl0.wav"), 
+  pygame.mixer.Sound("sound\\expl1.wav")
 ]
 
 
@@ -103,6 +103,16 @@ class Player(pygame.sprite.Sprite): # 是從Sprite繼承而來
     self.gun_time = 0
   
   def update(self):
+    now = pygame.time.get_ticks()
+    if self.gun > 1 and now - self.gun_time > 5000:
+      self.gun -= 1
+      self.gun_time = now
+
+    if self.hidden and now - self.hide_time > 1000:
+      self.hidden = False
+      self.rect.centerx = WIDTH / 2
+      self.rect.bottom = HEIGHT - 10
+      
     # 取得按鍵被按下的狀態，並更新太空船的座標
     # 設定太空船左右移動不能超出視窗左右
     key_pressed = pygame.key.get_pressed()
@@ -296,8 +306,6 @@ def new_rock():
 pygame.mixer.music.play(-1)
 show_init = True  # 新遊戲
 
-
-
 # 遊戲迴圈
 while True:
   clock.tick(FPS)
@@ -329,7 +337,6 @@ while True:
     if (e.type == pygame.KEYDOWN and 
         e.key == pygame.K_SPACE  ):
         player.shoot()    # 如果按「空白鍵」則執行Player的發射子彈副程式(shoot())
-  
 
   # 更新遊戲
   all_sprites.update()    # 所有sprite group裡的sprite 都執行更新副程式(update())
@@ -348,7 +355,6 @@ while True:
       all_sprites.add(pow)
       powers.add(pow)
     new_rock()
-
 
   ## 判斷石頭 飛船相撞(用圓形邊界)
   hits = pygame.sprite.spritecollide(player, rocks, True, pygame.sprite.collide_circle)
